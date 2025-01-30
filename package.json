@@ -3,7 +3,7 @@
   "displayName": "Deeper Seek",
   "publisher": "WebNurture",
   "description": "Boost your coding experience! This VS Code extension lets you chat with DeepSeek R1 using Ollama right from your editor.",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "engines": {
     "vscode": "^1.96.0"
   },
