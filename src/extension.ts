@@ -4,6 +4,8 @@ import ollama from "ollama"
 export function activate(context: vscode.ExtensionContext) {
   console.log('Congratulations, your extension "aj-extension" is now active!')
 
+  let abortController: AbortController | null = null
+
   const disposable = vscode.commands.registerCommand("aj-ext.start", () => {
     const panel = vscode.window.createWebviewPanel(
       "deepChat",
@@ -16,6 +18,12 @@ export function activate(context: vscode.ExtensionContext) {
 
     panel.webview.onDidReceiveMessage(async (message: any) => {
       if (message.command === "chat") {
+        if (abortController) {
+          abortController.abort() // Stop previous stream if running
+        }
+        abortController = new AbortController()
+        const { signal } = abortController
+
         const userPrompt = message.text
         let responseText = ""
 
@@ -27,11 +35,23 @@ export function activate(context: vscode.ExtensionContext) {
           })
 
           for await (const part of streamResponse) {
+            if (signal.aborted) {
+              panel.webview.postMessage({
+                command: "chatResponse",
+                text: "Stream stopped by user.",
+              })
+              return
+            }
             responseText += part.message.content
             panel.webview.postMessage({ command: "chatResponse", text: responseText })
           }
         } catch (error: any) {
           panel.webview.postMessage({ command: "chatResponse", text: `Error: ${String(error)}` })
+        }
+      } else if (message.command === "stop") {
+        if (abortController) {
+          abortController.abort() // Stop current response
+          panel.webview.postMessage({ command: "chatResponse", text: "Stream stopped by user." })
         }
       }
     })
@@ -54,7 +74,7 @@ function getWebViewContent(): string {
                     margin: 1.5rem;
                 }
                 
-                h2 {
+                h1 {
                     text-align: center;
                     color: #61dafb;
                 }
@@ -72,22 +92,34 @@ function getWebViewContent(): string {
                     resize: none;
                 }
                 
-                #askBtn {
+                #askBtn, #stopBtn {
                     display: block;
                     width: 100%;
                     padding: 10px;
                     margin-top: 10px;
                     border: none;
                     border-radius: 5px;
-                    background-color: #007acc;
-                    color: white;
                     font-size: 1rem;
                     cursor: pointer;
                     transition: 0.3s ease;
                 }
-                
+
+                #askBtn {
+                    background-color: #007acc;
+                    color: white;
+                }
+
                 #askBtn:hover {
                     background-color: #005f99;
+                }
+
+                #stopBtn {
+                    background-color: #d9534f;
+                    color: white;
+                }
+
+                #stopBtn:hover {
+                    background-color: #c9302c;
                 }
                 
                 #response {
@@ -103,9 +135,10 @@ function getWebViewContent(): string {
             </style>
       </head>
       <body>
-          <h2>Chat with Deep Seek</h2>
+          <h1>Chat with Deep Seek</h1>
           <textarea id="prompt" rows=3 placeholder="Ask Anything......"></textarea><br/>
           <button id="askBtn">Ask</button>
+          <button id="stopBtn">Stop (Ctrl + C)</button>
           <div id="response"></div>
 
           <script>
@@ -113,15 +146,25 @@ function getWebViewContent(): string {
 
             document.getElementById("askBtn").addEventListener("click", () => {
               const promptInput = document.getElementById("prompt");
-              const text = document.getElementById("prompt").value;
+              const text = promptInput.value;
               vscode.postMessage({ command: "chat", text });
               promptInput.value = "";
+            });
+
+            document.getElementById("stopBtn").addEventListener("click", () => {
+              vscode.postMessage({ command: "stop" });
             });
 
             window.addEventListener("message", event => {
               const { command , text } = event.data;
               if (command === "chatResponse"){
                 document.getElementById("response").innerText = text;
+              }
+            });
+
+            document.addEventListener("keydown", (event) => {
+              if (event.ctrlKey && event.key === "c") {
+                vscode.postMessage({ command: "stop" });
               }
             });
           </script>
