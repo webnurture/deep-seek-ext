@@ -1,71 +1,31 @@
-# aj-ext README
+# Deeper Seek: DeepSeek-R1 Integration for VS Code
 
-This is the README for your extension "aj-ext". After writing up a brief description, we recommend including the following sections.
+Deeper Seek enables seamless interaction with DeepSeek-R1 models directly within Visual Studio Code, leveraging Ollama's local runtime. Designed for privacy and performance, Deeper Seek offers an AI-assisted coding experience with no internet connection required.
 
-## Features
+## Key Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+- **Local Model Execution**: Run DeepSeek-R1 models entirely on your machine.
+- **Privacy-First AI**: No data leaves your environment.
+- **Integrated Chat Interface**: AI-driven assistance within VS Code.
+- **Custom Model Selection**: Choose from various DeepSeek-R1 models based on hardware capability.
 
-For example if there is an image subfolder under your extension project workspace:
+## Installation
 
-\!\[feature X\]\(images/feature-x.png\)
+1. **Install Ollama** from [ollama.ai](https://ollama.ai/).
+2. **Download Deeper Seek** from the VS Code Marketplace.
+3. **Run DeepSeek-R1 Models**:
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+```bash
+ollama run deepseek-r1:1.5b
+```
 
-## Requirements
+## Usage
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+- Open VS Code and launch Deeper Seek from the command palette (`Ctrl+Shift+P` / `Cmd+Shift+P`).
+- Select a model and start querying AI directly within your editor.
 
-## Extension Settings
+## License
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
+Deeper Seek is licensed under MIT. DeepSeek-R1 model licenses apply.
 
-For example:
-
-This extension contributes the following settings:
-
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
-
-## Known Issues
-
-Calling out known issues can help limit users opening duplicate issues against your extension.
-
-## Release Notes
-
-Users appreciate release notes as you update your extension.
-
-### 1.0.0
-
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
-
----
-
-## Following extension guidelines
-
-Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
-
-* [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
-
-## Working with Markdown
-
-You can author your README using Visual Studio Code. Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux).
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux).
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets.
-
-## For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+Experience privacy-focused AI assistance directly in VS Code with Deeper Seek.
