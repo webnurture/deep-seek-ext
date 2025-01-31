@@ -7,13 +7,12 @@ Deeper Seek enables seamless interaction with DeepSeek-R1 models directly within
 - **Local Model Execution**: Run DeepSeek-R1 models entirely on your machine.
 - **Privacy-First AI**: No data leaves your environment.
 - **Integrated Chat Interface**: AI-driven assistance within VS Code.
-- **Custom Model Selection**: Choose from various DeepSeek-R1 models based on hardware capability.
 
 ## Installation
 
 1. **Install Ollama** from [ollama.ai](https://ollama.ai/).
 2. **Download Deeper Seek** from the VS Code Marketplace.
-3. **Run DeepSeek-R1 Models**:
+3. **Run DeepSeek-R1 Model**:
 
 ```bash
 ollama run deepseek-r1:1.5b

@@ -41,6 +41,7 @@
     "typescript": "^5.7.2"
   },
   "dependencies": {
-    "ollama": "^0.5.12"
+    "ollama": "^0.5.12",
+    "prismjs": "^1.29.0"
   }
 }
