@@ -76,7 +76,10 @@ function getWebViewContent(): string {
                 
                 h1 {
                     text-align: center;
-                    color: #61dafb;
+                    font-size: 2.5rem;
+                    background: linear-gradient(to right, #61dafb, white);
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
                 }
                 
                 #prompt {
@@ -96,7 +99,7 @@ function getWebViewContent(): string {
                     display: block;
                     width: 100%;
                     padding: 10px;
-                    margin-top: 10px;
+                    margin-top: 20px;
                     border: none;
                     border-radius: 5px;
                     font-size: 1rem;
@@ -135,10 +138,13 @@ function getWebViewContent(): string {
             </style>
       </head>
       <body>
-          <h1>Chat with Deep Seek</h1>
-          <textarea id="prompt" rows=3 placeholder="Ask Anything......"></textarea><br/>
-          <button id="askBtn">Ask</button>
-          <button id="stopBtn">Stop (Ctrl + C)</button>
+          <h1>Chat with Deeper Seek</h1>
+          <textarea id="prompt" rows=5 placeholder="Ask Anything......"></textarea><br/>
+          <div style="display: flex; justify-content: space-between; gap: 20px">
+            <button id="askBtn">Ask</button>
+            <button id="stopBtn">Stop (Ctrl + C)</button>
+          </div>
+          
           <div id="response"></div>
 
           <script>
